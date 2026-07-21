@@ -94,7 +94,6 @@ A discrete-event simulation (SimPy) of the busiest peak-hour dispatch area, cali
 Python · pandas · LightGBM · SciPy · SimPy · matplotlib
  
 ## License
-<<<<<<< HEAD
 Code: MIT. Data: Apache-2.0 ([Cainiao-AI/LaDe](https://huggingface.co/datasets/Cainiao-AI/LaDe)), not redistributed here — the ingestion script fetches it directly from source. 
 =======
 Code: MIT. Data: Apache-2.0 (Cainiao-AI/LaDe), not redistributed here — the ingestion script fetches it directly from source.
