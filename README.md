@@ -4,12 +4,7 @@ RouteCast is an end-to-end operations-research and machine-learning system for l
 <<<<<<< HEAD
  
 **Live dashboard:** https://alexbiuckians.github.io/RouteCast/dashboard/
- 
-=======
 
-**DASHBOARD**:https://alexbiuckians.github.io/RouteCast/dashboard/
-
->>>>>>> 36cd8a2b6e97d8a6abff7947b2711ad9ebdec2df
 ## The dataset
  
 **Source:** [Cainiao-AI/LaDe](https://huggingface.co/datasets/Cainiao-AI/LaDe) — the first comprehensive last-mile delivery dataset from industry (Alibaba Cainiao), released under Apache-2.0. Paper: [arXiv:2306.10675](https://arxiv.org/abs/2306.10675)
