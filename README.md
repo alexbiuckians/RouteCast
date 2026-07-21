@@ -2,7 +2,8 @@
 
 RouteCast is an end-to-end operations-research and machine-learning system for last-mile parcel delivery. It forecasts delivery times with calibrated uncertainty, optimizes courier-to-order assignment, and simulates peak-hour staffing — built entirely on **real industrial data**, not synthetic data.
 
-![pipeline](dashboard/preview.png) <!-- optional: screenshot the dashboard and save as dashboard/preview.png -->
+![pipeline](dashboard/preview.png)
+<!-- optional: screenshot the dashboard and save as dashboard/preview.png -->
 
 ## The dataset
 
