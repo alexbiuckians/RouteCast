@@ -95,7 +95,3 @@ Python · pandas · LightGBM · SciPy · SimPy · matplotlib
  
 ## License
 Code: MIT. Data: Apache-2.0 ([Cainiao-AI/LaDe](https://huggingface.co/datasets/Cainiao-AI/LaDe)), not redistributed here — the ingestion script fetches it directly from source. 
-=======
-Code: MIT. Data: Apache-2.0 (Cainiao-AI/LaDe), not redistributed here — the ingestion script fetches it directly from source.
-https://huggingface.co/datasets/Cainiao-AI/LaDe
->>>>>>> 36cd8a2b6e97d8a6abff7947b2711ad9ebdec2df
