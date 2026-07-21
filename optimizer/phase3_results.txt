@@ -1,0 +1,17 @@
+============================================================
+RouteCast Phase 3 — Assignment Optimizer (local dispatch)
+============================================================
+
+Batch size: 6 | batches: 300 | speed: 250 m/min | per-zone sampling
+Eligible zones (>= 12 orders): 4,163
+
+============================================================
+RESULTS  (avg total cost per batch, in minutes)
+============================================================
+
+Greedy nearest-first : 688.1 min
+Optimal (Hungarian)  : 680.0 min
+Improvement          : 1.2% less total cost
+
+Per order: greedy 114.7 min  vs  optimal 113.3 min
+Saved: 1.3 min per order on average

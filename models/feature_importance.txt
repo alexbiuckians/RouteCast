@@ -1,0 +1,13 @@
+Feature importance (P50 model), by gain:
+
+  zone_avg_min      46.0%   (splits: 7740)
+  courier_avg_min   16.8%   (splits: 8280)
+  hour_sin          14.1%   (splits: 2682)
+  courier_load       8.7%   (splits: 3753)
+  dist_m             6.6%   (splits: 7478)
+  hour_cos           2.6%   (splits: 1619)
+  demand_density     2.1%   (splits: 2628)
+  city_code          1.9%   (splits: 1369)
+  dayofweek          0.6%   (splits: 1329)
+  is_rush            0.5%   (splits: 261)
+  is_weekend         0.0%   (splits: 61)

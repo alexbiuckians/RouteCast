@@ -1,0 +1,39 @@
+============================================================
+RouteCast Phase 4 — Peak-Hour Dispatch Simulation
+============================================================
+
+Dispatch area: 7x7-zone cluster around (np.int64(-10830), np.int64(14921))
+Peak hour: 18:00  |  days observed: 15
+Calibrated arrival rate: 0.19 orders/min (11/hour)
+Delivery time (real): median 52 min, mean 53 min
+Runs per staffing level: 30
+
+   3 couriers -> avg    86.8 min in system (wait + delivery)
+   5 couriers -> avg    74.0 min in system (wait + delivery)
+   8 couriers -> avg    57.7 min in system (wait + delivery)
+  10 couriers -> avg    55.1 min in system (wait + delivery)
+  12 couriers -> avg    53.3 min in system (wait + delivery)
+  15 couriers -> avg    54.3 min in system (wait + delivery)
+  20 couriers -> avg    50.4 min in system (wait + delivery)
+  25 couriers -> avg    53.7 min in system (wait + delivery)
+  30 couriers -> avg    53.6 min in system (wait + delivery)
+
+Marginal effect of adding couriers:
+   3->5 :   +12.8 min/order
+   5->8 :   +16.3 min/order
+   8->10:    +2.6 min/order
+  10->12:    +1.8 min/order
+  12->15:    -1.1 min/order
+  15->20:    +4.0 min/order
+  20->25:    -3.3 min/order
+  25->30:    +0.1 min/order
+
+Efficient staffing level (within 10% of best): 10 couriers
+  Understaffed (3) : 87 min/order
+  Efficient (10) : 55 min/order
+
+Chart saved: C:\Users\alexb\RouteCast\simulation\couriers_vs_delaytime.png
+
+Takeaway: adding couriers sharply cuts delivery time while understaffed,
+then flattens (diminishing returns). The simulation locates the efficient
+peak-hour staffing level — a larger operational lever than assignment.

@@ -1,0 +1,27 @@
+============================================================
+RouteCast Phase 2 — Quantile ETA Model
+============================================================
+
+Records: 445,295
+Train: 356,236   Test: 89,059
+Features (11): ['dist_m', 'demand_density', 'courier_load', 'hour_sin', 'hour_cos', 'dayofweek', 'is_weekend', 'is_rush', 'city_code', 'courier_avg_min', 'zone_avg_min']
+
+Training p10 (quantile=0.1)...
+
+Training p50 (quantile=0.5)...
+
+Training p90 (quantile=0.9)...
+
+============================================================
+RESULTS
+============================================================
+
+P50 MAE: 44.7 min   (mean-baseline 65.8)
+  Improvement over baseline: 32.0%
+
+Calibration:
+  P10 covers 10.8%  (target ~10%)
+  P90 covers 88.9%  (target ~90%)
+
+P10-P90 band contains actual: 78.1%
+Average band width: 136 min

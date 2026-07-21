@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RouteCast — Last-Mile Dispatch Intelligence</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel-2:#1c2430;
+    --line:#2a333f; --ink:#e6edf3; --muted:#8b98a5;
+    --signal:#ff7a1a; --signal-dim:#c85a10;
+    --cyan:#3fb6c9; --good:#4ec9a0;
+    --mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* Header / hero */
+  header{border-bottom:1px solid var(--line);background:
+    radial-gradient(1200px 300px at 20% -20%, rgba(255,122,26,.10), transparent);}
+  .top{display:flex;align-items:center;justify-content:space-between;
+    padding:20px 0;font-family:var(--mono);font-size:12px;color:var(--muted);
+    letter-spacing:.08em}
+  .live{display:inline-flex;align-items:center;gap:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--signal);
+    box-shadow:0 0 0 0 rgba(255,122,26,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,122,26,.5)}
+    70%{box-shadow:0 0 0 8px rgba(255,122,26,0)}100%{box-shadow:0 0 0 0 rgba(255,122,26,0)}}
+  .hero{padding:56px 0 64px}
+  .eyebrow{font-family:var(--mono);color:var(--signal);font-size:13px;
+    letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px}
+  h1{font-size:clamp(34px,5.5vw,60px);line-height:1.02;font-weight:800;
+    letter-spacing:-.02em;max-width:16ch}
+  h1 .thin{color:var(--muted);font-weight:400}
+  .lede{margin-top:22px;max-width:60ch;color:var(--muted);font-size:18px}
+  .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .meta b{color:var(--ink);font-weight:600}
+
+  /* Pipeline strip */
+  .pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:10px;
+    overflow:hidden;margin:8px 0 64px}
+  .stage{background:var(--panel);padding:16px 14px;font-family:var(--mono);font-size:11px}
+  .stage .n{color:var(--signal);font-size:11px}
+  .stage .t{color:var(--ink);margin-top:6px;font-size:12.5px;font-weight:600;
+    font-family:var(--sans)}
+  .stage .s{color:var(--muted);margin-top:3px}
+  .stage.done .s{color:var(--good)}
+
+  /* Sections */
+  section{padding:20px 0 8px}
+  .shead{display:flex;align-items:baseline;gap:14px;margin-bottom:22px}
+  .shead .num{font-family:var(--mono);color:var(--signal);font-size:13px}
+  .shead h2{font-size:23px;font-weight:700;letter-spacing:-.01em}
+  .shead .tag{margin-left:auto;font-family:var(--mono);font-size:11px;
+    color:var(--good);border:1px solid var(--line);padding:3px 9px;border-radius:20px}
+
+  /* Metric cards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:14px;margin-bottom:20px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:20px}
+  .card .k{font-family:var(--mono);font-size:11px;color:var(--muted);
+    letter-spacing:.06em;text-transform:uppercase}
+  .card .v{font-size:34px;font-weight:800;margin-top:10px;letter-spacing:-.02em}
+  .card .v .u{font-size:15px;color:var(--muted);font-weight:500;margin-left:4px}
+  .card .d{font-size:13px;color:var(--muted);margin-top:8px}
+  .card .v.sig{color:var(--signal)} .card .v.good{color:var(--good)}
+  .card .v.cy{color:var(--cyan)}
+
+  .note{background:var(--panel-2);border-left:2px solid var(--signal);
+    padding:14px 18px;border-radius:0 8px 8px 0;color:var(--muted);
+    font-size:14.5px;margin:18px 0 44px}
+  .note b{color:var(--ink)}
+  figure{margin:18px 0 44px;background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:16px}
+  figure img{width:100%;border-radius:6px;display:block;background:#fff}
+  figcaption{font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    margin-top:12px;text-align:center}
+
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:36px 0 60px;
+    color:var(--muted);font-family:var(--mono);font-size:12.5px}
+  footer a{color:var(--cyan);text-decoration:none}
+  .divider{height:1px;background:var(--line);margin:8px 0 40px}
+
+  @media(max-width:720px){
+    .pipe{grid-template-columns:repeat(2,1fr)}
+    .hero{padding:40px 0}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="top">
+      <span>ROUTECAST // DISPATCH INTELLIGENCE</span>
+      <span class="live"><span class="dot"></span>445,295 ORDERS ANALYZED</span>
+    </div>
+    <div class="hero">
+      <div class="eyebrow">Last-mile parcel dispatch · real industrial data</div>
+      <h1>Predicting delivery,<br><span class="thin">then deciding dispatch.</span></h1>
+      <p class="lede">An end-to-end system that forecasts delivery times with
+        calibrated uncertainty, optimizes courier assignment, and simulates
+        staffing — built entirely on Cainiao's LaDe dataset, not synthetic data.</p>
+      <div class="meta">
+        <span>DATA <b>Cainiao-AI/LaDe</b></span>
+        <span>CITIES <b>Shanghai · Hangzhou · Chongqing</b></span>
+        <span>RECORDS <b>445,295</b> clean</span>
+        <span>STACK <b>LightGBM · SciPy · SimPy</b></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="pipe">
+    <div class="stage done"><div class="n">01</div><div class="t">Ingest & Clean</div><div class="s">complete</div></div>
+    <div class="stage done"><div class="n">02</div><div class="t">Quantile ETA</div><div class="s">complete</div></div>
+    <div class="stage done"><div class="n">03</div><div class="t">Assignment</div><div class="s">complete</div></div>
+    <div class="stage done"><div class="n">04</div><div class="t">Simulation</div><div class="s">complete</div></div>
+    <div class="stage done"><div class="n">05</div><div class="t">Dashboard</div><div class="s">you're here</div></div>
+  </div>
+
+  <!-- Phase 1 -->
+  <section>
+    <div class="shead"><span class="num">01</span><h2>Clean geospatial foundation</h2>
+      <span class="tag">445K RECORDS</span></div>
+    <div class="cards">
+      <div class="card"><div class="k">Clean retention</div>
+        <div class="v">94.3<span class="u">%</span></div>
+        <div class="d">after removing implausible durations from 472K raw</div></div>
+      <div class="card"><div class="k">Metric zones</div>
+        <div class="v cy">8,395</div>
+        <div class="d">~53 orders each, binned in native meters</div></div>
+      <div class="card"><div class="k">Delivery time spread</div>
+        <div class="v">29–229<span class="u">min</span></div>
+        <div class="d">P10 to P90 — wide spread motivates quantile prediction</div></div>
+    </div>
+    <div class="note"><b>Coordinate insight:</b> LaDe positions are a projected
+      metric grid, not GPS degrees — so zones are binned in native meters,
+      needing no datum assumptions and yielding correct distances.</div>
+  </section>
+
+  <!-- Phase 2 -->
+  <section>
+    <div class="shead"><span class="num">02</span><h2>Calibrated quantile ETA model</h2>
+      <span class="tag">WELL-CALIBRATED</span></div>
+    <div class="cards">
+      <div class="card"><div class="k">Median error (MAE)</div>
+        <div class="v sig">44.7<span class="u">min</span></div>
+        <div class="d">32% better than mean baseline</div></div>
+      <div class="card"><div class="k">P90 coverage</div>
+        <div class="v good">88.9<span class="u">%</span></div>
+        <div class="d">of deliveries fall within predicted P90 (target 90%)</div></div>
+      <div class="card"><div class="k">Top signal</div>
+        <div class="v cy">63<span class="u">%</span></div>
+        <div class="d">of predictive gain from zone + courier history features</div></div>
+    </div>
+    <figure><img src="../models/feature_importance.png" alt="Feature importance">
+      <figcaption>What drives the ETA prediction — engineered history features lead</figcaption></figure>
+    <div class="note"><b>Leakage-free by construction:</b> courier and zone
+      historical averages are computed on the training split only, then mapped
+      onto test — so the 44.7-min result is trustworthy, not inflated.</div>
+  </section>
+
+  <!-- Phase 3 -->
+  <section>
+    <div class="shead"><span class="num">03</span><h2>Assignment optimization</h2>
+      <span class="tag">HUNGARIAN vs GREEDY</span></div>
+    <div class="cards">
+      <div class="card"><div class="k">Method</div>
+        <div class="v">Optimal</div>
+        <div class="d">provably-optimal assignment vs greedy nearest-first</div></div>
+      <div class="card"><div class="k">Gain @ 3.5 km radius</div>
+        <div class="v sig">3.4<span class="u">%</span></div>
+        <div class="d">less total cost — triples as dispatch area widens</div></div>
+    </div>
+    <figure><img src="../optimizer/optimizer_vs_radius.png" alt="Optimizer vs radius">
+      <figcaption>The optimizer's advantage grows with dispatch radius</figcaption></figure>
+    <div class="note"><b>Finding:</b> optimization pays off most when courier
+      supply is geographically dispersed. Tightly clustered couriers are already
+      near-optimal under greedy — so the real lever lies in staffing, not assignment.</div>
+  </section>
+
+  <!-- Phase 4 -->
+  <section>
+    <div class="shead"><span class="num">04</span><h2>Peak-hour staffing simulation</h2>
+      <span class="tag">DISCRETE-EVENT</span></div>
+    <div class="cards">
+      <div class="card"><div class="k">Understaffed (3 couriers)</div>
+        <div class="v">87<span class="u">min</span></div>
+        <div class="d">average time per order at the peak-hour hotspot</div></div>
+      <div class="card"><div class="k">Efficient (10 couriers)</div>
+        <div class="v good">55<span class="u">min</span></div>
+        <div class="d">a 37% cut — beyond this, negligible benefit</div></div>
+      <div class="card"><div class="k">Efficient level</div>
+        <div class="v sig">≈10</div>
+        <div class="d">couriers, located automatically at the curve's elbow</div></div>
+    </div>
+    <figure><img src="../simulation/couriers_vs_delaytime.png" alt="Staffing vs delivery time">
+      <figcaption>Staffing vs. delivery time — sharp gains, then diminishing returns</figcaption></figure>
+    <div class="note"><b>Calibrated on real data:</b> arrival rate and delivery-time
+      distribution come from LaDe's busiest peak-hour area; the queue outcomes are
+      simulated. Standard operations-research method — real data, modelled scenarios.</div>
+  </section>
+
+  <div class="divider"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>ROUTECAST · built on <a href="https://huggingface.co/datasets/Cainiao-AI/LaDe">Cainiao-AI/LaDe</a>
+      (Apache-2.0) · code MIT</div>
+    <div style="margin-top:8px">Pipeline reproducible from a single ingestion
+      script — no data committed, fetched from source.</div>
+  </div>
+</footer>
+</body>
+</html>

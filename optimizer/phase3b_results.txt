@@ -1,0 +1,24 @@
+==============================================================
+RouteCast Phase 3b — Optimizer Benefit vs. Dispatch Radius
+==============================================================
+
+Radius 0  (1x1 zones, ~0.7 km, n=300)
+  Greedy : 110.7 min/order
+  Optimal: 109.4 min/order
+  Improvement: 1.2%
+
+Radius 1  (3x3 zones, ~2.0 km, n=300)
+  Greedy : 125.7 min/order
+  Optimal: 122.7 min/order
+  Improvement: 2.4%
+
+Radius 2  (5x5 zones, ~3.5 km, n=300)
+  Greedy : 125.9 min/order
+  Optimal: 121.7 min/order
+  Improvement: 3.4%
+
+Chart saved: C:\Users\alexb\RouteCast\optimizer\optimizer_vs_radius.png
+
+Takeaway: the optimizer's advantage grows with dispatch radius —
+negligible when couriers are tightly clustered, larger when supply is
+spread out and greedy's local choices create pile-ups.
